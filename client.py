@@ -12,6 +12,7 @@ serverIp = "127.0.0.1"
 image_hub = imagezmq.ImageSender("tcp://" + serverIp + ":5555")
 cap = cv2.VideoCapture(0)
 
+
 class Client(threading.Thread):
     def init_audio(self):
         audio_recorder = AudioStreamerRecorder(serverIp, 5654)
