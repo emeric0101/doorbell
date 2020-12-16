@@ -1,7 +1,7 @@
 import threading
 from tkinter import Tk, Label, Button
 
-import cv2
+import cv2  # pip install opencv
 import imagezmq
 
 from AudioStreamer import AudioStreamerRecorder
