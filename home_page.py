@@ -53,8 +53,8 @@ class App(Frame):  # fenêtre principale (ecran accueil)
 
 def warn_failed_to_connect():
     messagebox.showerror("Erreur", "Impossible de se connecter au serveur.\nMerci de vérifier qu'il est en marche et "
-                                   "ensuite redémarrer l'application et réassayer.")
-    if messagebox.askyesno("Redémarrer ?", "Voulez vous quiter le programme"):
+                                   "ensuite de redémarrer l'application et de réassayer.")
+    if messagebox.askyesno("Quitter ?", "Voulez vous quiter le programme ?"):
         sys.exit()
 
 

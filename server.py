@@ -10,7 +10,6 @@ from imagezmq import imagezmq
 from AudioStreamer import AudioStreamerServer
 from EasySocket import EasySocketServer
 
-
 print("Starting video server")
 video_server = EasySocketServer(local_ip, 5567, lambda x: True)
 video_server.start()
@@ -38,7 +37,6 @@ class Video_thread(threading.Thread):
 
 class Ring_server:
     def __init__(self):
-
         self.ring_server = EasySocketServer(local_ip, 5568, self.on_ring)
         self.client_server = EasySocketServer(local_ip, 5569, self.on_phone_received)
         self.ring_server.start()
@@ -49,14 +47,9 @@ class Ring_server:
         print("Ring")
 
     def on_phone_received(self, socket, address, payload):
-
         print("Open video")
-
-
 
 
 ring = Ring_server()
 vt = Video_thread()
 vt.start()
-
-

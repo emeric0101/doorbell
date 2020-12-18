@@ -1,6 +1,7 @@
+import threading
 import wave
 from time import sleep
-import PIL.Image     # run pip install Pillow
+import PIL.Image  # run pip install Pillow
 import PIL.ImageTk
 import cv2
 import pyaudio
@@ -15,27 +16,46 @@ chunk = 1024
 
 win_name = "DOORBELL"
 
-video_frame = None
+
+class VideoFrameContainer:
+    def __init__(self):
+        self.video_frame = None
+        self.mutex = threading.Lock()
+
+    def get_frame(self):
+        with self.mutex:
+            return self.video_frame
+
+    def set_frame(self, data):
+        with self.mutex:
+            self.video_frame = data
+
+
+video_frame_container = VideoFrameContainer()
 
 
 def on_video_received(data):
-    global video_frame
-    video_frame = data
+    global video_frame_container
+    video_frame_container.set_frame(data)
 
 
 def play_wave(filename):
     playsound(filename)
 
+socket_client = None
+
 
 def open_video():
+    global socket_client
     socket_client = EasySocketClient(None, on_video_received, lambda x: True)
     socket_client.create_socket(ip_client, 5567)
     socket_client.start()
     # audio_client = AudioStreamerListener("127.0.0.1", 5655)
     # audio_client
-    sleep(5)
-    cv2.destroyWindow(win_name)
-    print("Ring :)")
+
+
+def close_video():
+    global socket_client
     socket_client.close()
 
 
