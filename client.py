@@ -1,7 +1,7 @@
 import threading
 from tkinter import Tk, Label, Button
 
-import cv2
+import cv2  # pip install opencv
 import imagezmq
 
 from AudioStreamer import AudioStreamerRecorder
@@ -11,6 +11,7 @@ serverIp = "127.0.0.1"
 
 image_hub = imagezmq.ImageSender("tcp://" + serverIp + ":5555")
 cap = cv2.VideoCapture(0)
+
 
 class Client(threading.Thread):
     def init_audio(self):
